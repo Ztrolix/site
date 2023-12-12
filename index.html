@@ -1,96 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ztrolix</title>
-        <style>
-            @import url(https://db.onlinewebfonts.com/c/b0755951227a35be2e1b6af8a8bbe233?family=Borsok);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ztrolix</title>
+    <script src="https://cdn.clerk.dev/clerk.js"></script>
+    <style>
+        @import url(https://db.onlinewebfonts.com/c/b0755951227a35be2e1b6af8a8bbe233?family=Borsok);
 
-            body {
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                background: linear-gradient(to right, #ff3131, #ff914d);
-            }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 100vh;
+            background: #111322;
+            color: #e4e3f2;
+            transition: background 0.3s, color 0.3s;
+        }
 
-            .container {
-                background-color: #fff;
-                border-radius: 20px;
-                padding: 20px;
-            }
+        .container {
+            background-color: #111322;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 50px;
+            text-align: left;
+            font-family: 'Borsok';
+            box-sizing: border-box;
+            width: calc(100% - 200px);
+            height: calc(100% - 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-            h1 {
-                color: #000;
-                text-align: center;
-                font-size: 100px;
-                font-family: "Borsok";
-            }
+        h1, h2, h3 {
+            color: #e4e3f2;
+            font-family: "Borsok";
+            margin: 0;
+        }
 
-            h2 {
-                color: #000;
-                text-align: center;
-                font-size: 40px;
-                font-family: "Borsok";
-            }
+        h1 {
+            font-size: 150px;
+            margin-bottom: 10px;
+        }
 
-            h3 {
-                color: #000;
-                text-align: center;
-                font-size: 30px;
-                font-family: "Borsok";
-            }
+        h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
 
-            #loading-gif {
-                display: none;
-            }
+        #loading-gif {
+            display: none;
+        }
 
-            @font-face {
-                font-family: "Borsok";
-                src: url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.eot");
-                src: url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.eot?#iefix")format("embedded-opentype"),
-                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.woff2")format("woff2"),
-                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.woff")format("woff"),
-                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.ttf")format("truetype"),
-                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.svg#Borsok")format("svg");
-            }
-        </style>
-        <link rel="icon" type="image/png" href="favicon.png">
-    </head>
-    <body>
-        <div class="container">
-            <div id="loading-gif">
-                <img src="https://raw.githubusercontent.com/Ztrolix/site/main/loading.gif" alt="Loading">
-            </div>
+        #content {
+            display: none;
+        }
 
-            <div id="content">
-                <h1>Ztrolix</h1>
-                <h2>Welcome to the new Ztrolix site!</h2>
-            </div>
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 20px 40px;
+            border: none;
+
+            font-size: 80px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: "Borsok";
+        }
+
+        #primary-button {
+            background-color: #0623c6;
+            color: #fff;
+        }
+
+        .primary-button {
+            background-color: #0623c6;
+            color: #fff;
+        }
+
+        #secondary-button {
+            background-color: #3d4076;
+            color: #fff;
+        }
+
+        #iframeContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: none;
+        }
+
+        #closeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            padding: 5px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            border-radius: 3px;
+        }
+
+        #overflowingDiv {
+            width: 300px; /* Set the desired width */
+            height: 200px; /* Set the desired height */
+            overflow: hidden; /* Hide content that overflows the div */
+            position: relative; /* Enable positioning */
+        }
+
+        #overflowingContent {
+            width: 400px; /* Set a width larger than the div */
+            height: 200px;
+            position: relative; /* Enable positioning */
+            margin-left: width 100%; /* Adjust the margin to shift content to the right */
+        }
+
+        .gg-profile,
+        .gg-profile::after,
+        .gg-profile::before {
+            display: block;
+            box-sizing: border-box;
+            border: 2px solid;
+            border-radius: 100px
+        }
+        .gg-profile {
+            overflow: hidden;
+            transform: scale(var(--ggs,1));
+            width: 22px;
+            height: 22px;
+            position: relative
+        }
+        .gg-profile::after,
+        .gg-profile::before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 8px;
+            height: 8px
+        }
+        .gg-profile::after {
+            border-radius: 200px;
+            top: 11px;
+            left: 0px;
+            width: 18px;
+            height: 18px
+        }
+    </style>
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <div id="loading-gif">
+        <img src="https://raw.githubusercontent.com/Ztrolix/site/main/loading.gif" alt="Loading">
+    </div>
+
+    <div class="container" id="content">
+        <div id="iframeContainer">
+            <div class="button" style="background-color: #0623c6; border-radius: 10px; font-size: 20px;" id="closeButton" onclick="closeIframe()">Go Back</div>
+            <iframe src="https://singular-gobbler-4.accounts.dev/user" width="100%" height="100%" frameborder="0"></iframe>
         </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var contentContainer = document.getElementById("content-container");
-                var loadingGif = document.getElementById("loading-gif");
+        <div class="buttons">
+            <h1>Z t r o l i x</h1>
+            <button class="button" style="padding: 20px 40px;" id="secondary-button" onclick="openIframe()">Account</button>
+        </div>
+    </div>
 
-                // Show loading GIF
-                loadingGif.style.display = "block";
-                content.style.display = "none";
+    <script>
+        content.style.display = "block";
+    </script>
+    <script type="text/javascript">
+        function handleSignUp() {
+            Clerk.register()
+                .then(() => console.log("Sign up success!"))
+                .catch((error) => console.error("Sign up error:", error));
+        }
 
-                // Simulate a delay (you can replace this with actual loading events)
-                setTimeout(function () {
-                    // Hide loading GIF
-                    loadingGif.style.display = "none";
-                    content.style.display = "block";
+        function handleLogin() {
+            Clerk.signIn()
+                .then(() => console.log("Login success!"))
+                .catch((error) => console.error("Login error:", error));
+        }
+    </script>
+    <script>
+        function openIframe() {
+            document.getElementById('iframeContainer').style.display = 'block';
+        }
 
-                    // Show content
-                    contentContainer.style.visibility = "visible";
-                }, 2000); // Adjust the delay as needed
+        function closeIframe() {
+            document.getElementById('iframeContainer').style.display = 'none';
+        }
+    </script>
+    <script
+      async
+      crossorigin="anonymous"
+      data-clerk-publishable-key="pk_test_c2luZ3VsYXItZ29iYmxlci00LmNsZXJrLmFjY291bnRzLmRldiQ"
+      onload="window.Clerk.load()"
+      src="https://singular-gobbler-4.clerk.accounts.dev/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+      type="text/javascript">
+    </script>
+    <script>
+        // Get this URL and Publishable Key from the Clerk Dashboard
+        const clerkPublishableKey = "pk_test_c2luZ3VsYXItZ29iYmxlci00LmNsZXJrLmFjY291bnRzLmRldiQ";
+        const frontendApi = 'https://singular-gobbler-4.accounts.dev';
+        const version = '@latest'; // Set to appropriate version
+     
+        // Creates asynchronous script
+        const script = document.createElement('script');
+        script.setAttribute('data-clerk-frontend-api', frontendApi);
+        script.setAttribute('data-clerk-publishable-key', clerkPublishableKey);
+        script.async = true;
+        script.src = `https://singular-gobbler-4.clerk.accounts.dev/npm/@clerk/clerk-js@4/dist/clerk.browser.js`;
+     
+        // Adds listener to initialize ClerkJS after it's loaded
+        script.addEventListener('load', async function () {
+            await window.Clerk.load({
+            // Set load options here...
             });
-        </script>
-    </body>
+        });
+        document.body.appendChild(script);
+    </script>
+</body>
 </html>
