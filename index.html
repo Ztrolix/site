@@ -1,39 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ztrolix Website</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Boorsok&display=swap">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(to right, #ff3131, #ff914d);
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ztrolix</title>
+        <style>
+            @import url(https://db.onlinewebfonts.com/c/b0755951227a35be2e1b6af8a8bbe233?family=Borsok);
 
-        .container {
-            background-color: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            font-family: 'Boorsok', sans-serif;
-        }
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background: linear-gradient(to right, #ff3131, #ff914d);
+            }
 
-        h1 {
-            color: #000;
-        }
-    </style>
-    <link rel="icon" type="image/png" href="favicon.png">
-</head>
-<body>
-    <div class="container">
-        <h1>Ztrolix</h1>
-        <!-- Add your content here -->
-    </div>
-</body>
+            .container {
+                background-color: #fff;
+                border-radius: 20px;
+                padding: 20px;
+            }
+
+            h1 {
+                color: #000;
+                text-align: center;
+                font-size: 100px;
+                font-family: "Borsok";
+            }
+
+            h2 {
+                color: #000;
+                text-align: center;
+                font-size: 40px;
+                font-family: "Borsok";
+            }
+
+            h3 {
+                color: #000;
+                text-align: center;
+                font-size: 30px;
+                font-family: "Borsok";
+            }
+
+            #loading-gif {
+                display: none;
+            }
+
+            @font-face {
+                font-family: "Borsok";
+                src: url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.eot");
+                src: url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.eot?#iefix")format("embedded-opentype"),
+                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.woff2")format("woff2"),
+                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.woff")format("woff"),
+                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.ttf")format("truetype"),
+                url("https://db.onlinewebfonts.com/t/b0755951227a35be2e1b6af8a8bbe233.svg#Borsok")format("svg");
+            }
+        </style>
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+    <body>
+        <div class="container">
+            <div id="loading-gif">
+                <img src="https://raw.githubusercontent.com/Ztrolix/site/main/loading.gif" alt="Loading">
+            </div>
+
+            <div id="content">
+                <h1>Ztrolix</h1>
+                <h2>Welcome to the new Ztrolix site!</h2>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var contentContainer = document.getElementById("content-container");
+                var loadingGif = document.getElementById("loading-gif");
+
+                // Show loading GIF
+                loadingGif.style.display = "block";
+                content.style.display = "none";
+
+                // Simulate a delay (you can replace this with actual loading events)
+                setTimeout(function () {
+                    // Hide loading GIF
+                    loadingGif.style.display = "none";
+                    content.style.display = "block";
+
+                    // Show content
+                    contentContainer.style.visibility = "visible";
+                }, 2000); // Adjust the delay as needed
+            });
+        </script>
+    </body>
 </html>
